@@ -7,20 +7,20 @@ set(EXECUTABLE_NAME "implot_demo")
 
 add_executable (${EXECUTABLE_NAME} 
 	demo.cpp
-	${CMAKE_SOURCE_DIR}/Common/App.cpp
+	${COMMON_SRCS}
 )
 
 target_include_directories(${EXECUTABLE_NAME} 
 	PRIVATE 
-	${CMAKE_SOURCE_DIR}/Common
-	${CMAKE_CURRENT_SOURCE_DIR}/Inc
+	${COMMON_INC}
+	${3RD_PARTY_INC}
 )
 
 target_link_libraries(${EXECUTABLE_NAME} 
 	PRIVATE
 	imgui
 	glfw
-	opengl32
+	OpenGL::GL
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

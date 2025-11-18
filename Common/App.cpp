@@ -5,21 +5,18 @@
 #include <Fonts/fa-solid-900.ttf.h>
 #include <Fonts/IconsFontAwesome6.h>
 
-void StyeColorsApp()
-{
+void StyeColorsApp() {
     ImGui::StyleColorsDark();
     ImPlot::StyleColorsAuto();
 }
 
 
-static void glfw_error_callback(int error, const char* description)
-{
+static void glfw_error_callback(int error, const char* description) {
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
 
 
-App::App(std::string title, int w, int h, int argc, char const* argv[])
-{
+App::App(std::string title, int w, int h, int argc, char const* argv[]) {
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -29,14 +26,13 @@ App::App(std::string title, int w, int h, int argc, char const* argv[])
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		   // 3.0+ only
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);           // 3.0+ only
 
     // Create window with graphics context
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const float dpi_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(monitor);
     Window = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
-    if (Window == NULL)
-    {
+    if (Window == NULL) {
         fprintf(stderr, "Failed to initialize GLFW window!\n");
         abort();
     }
@@ -51,8 +47,8 @@ App::App(std::string title, int w, int h, int argc, char const* argv[])
     ImGui_ImplOpenGL3_Init("#version 330");
 
     ImGuiStyle& style = ImGui::GetStyle();
-    style.ScaleAllSizes(dpi_scale);		 // Scale all sizes by the main_scale.
-    style.FontScaleDpi = dpi_scale;		 // Set initial font scale.
+    style.ScaleAllSizes(dpi_scale); // Scale all sizes by the main_scale.
+    style.FontScaleDpi = dpi_scale; // Set initial font scale.
     ClearColor = ImVec4(0.15f, 0.16f, 0.21f, 1.00f);
     StyeColorsApp();
 
@@ -73,8 +69,7 @@ App::App(std::string title, int w, int h, int argc, char const* argv[])
         16.0f, &icons_config, icons_ranges);
 }
 
-App::~App()
-{
+App::~App() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImPlot::DestroyContext();
@@ -83,12 +78,10 @@ App::~App()
     glfwTerminate();
 }
 
-void App::Run()
-{
+void App::Run() {
     Start();
     // Main loop
-    while (!glfwWindowShouldClose(Window))
-    {
+    while (!glfwWindowShouldClose(Window)) {
         glfwPollEvents();
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
@@ -107,8 +100,7 @@ void App::Run()
     }
 }
 
-ImVec2 App::GetWindowSize() const
-{
+ImVec2 App::GetWindowSize() const {
     int w, h;
     glfwGetWindowSize(Window, &w, &h);
     return ImVec2(w, h);
